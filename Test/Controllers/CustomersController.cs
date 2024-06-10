@@ -17,7 +17,7 @@ namespace Test.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<CustomerDto>> GetCustomerWithApplicationsAndRules()
+        public async Task<ActionResult<CustomerDto>> GetCustomers()
         {
             var customers = await _context.Customers
                 .Include(c => c.CustomerApplications)
@@ -38,5 +38,4 @@ namespace Test.Controllers
             return Ok(customerDtos);
         }
     }
-
 }

@@ -11,8 +11,8 @@ using Test.Context;
 namespace Test.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240610160605_Initail_Migration")]
-    partial class Initail_Migration
+    [Migration("20240615091223_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,23 @@ namespace Test.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Applications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Application1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Application2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Application3"
+                        });
                 });
 
             modelBuilder.Entity("Test.Model.Customer", b =>
@@ -56,6 +73,23 @@ namespace Test.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Customer1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Customer2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Customer3"
+                        });
                 });
 
             modelBuilder.Entity("Test.Model.CustomerApplication", b =>
@@ -71,6 +105,38 @@ namespace Test.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.ToTable("CustomerApplications");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerId = 1,
+                            ApplicationId = 1
+                        },
+                        new
+                        {
+                            CustomerId = 1,
+                            ApplicationId = 2
+                        },
+                        new
+                        {
+                            CustomerId = 2,
+                            ApplicationId = 2
+                        },
+                        new
+                        {
+                            CustomerId = 2,
+                            ApplicationId = 3
+                        },
+                        new
+                        {
+                            CustomerId = 3,
+                            ApplicationId = 1
+                        },
+                        new
+                        {
+                            CustomerId = 3,
+                            ApplicationId = 3
+                        });
                 });
 
             modelBuilder.Entity("Test.Model.Role", b =>
@@ -93,6 +159,38 @@ namespace Test.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ApplicationId = 1,
+                            Description = "Rule1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApplicationId = 1,
+                            Description = "Rule2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ApplicationId = 2,
+                            Description = "Rule3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ApplicationId = 2,
+                            Description = "Rule4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ApplicationId = 3,
+                            Description = "Rule5"
+                        });
                 });
 
             modelBuilder.Entity("Test.Model.CustomerApplication", b =>

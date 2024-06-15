@@ -2,10 +2,12 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Test.Migrations
 {
     /// <inheritdoc />
-    public partial class Initail_Migration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -78,6 +80,51 @@ namespace Test.Migrations
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Applications",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Application1" },
+                    { 2, "Application2" },
+                    { 3, "Application3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Customer1" },
+                    { 2, "Customer2" },
+                    { 3, "Customer3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CustomerApplications",
+                columns: new[] { "ApplicationId", "CustomerId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 3, 2 },
+                    { 1, 3 },
+                    { 3, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "ApplicationId", "Description" },
+                values: new object[,]
+                {
+                    { 1, 1, "Rule1" },
+                    { 2, 1, "Rule2" },
+                    { 3, 2, "Rule3" },
+                    { 4, 2, "Rule4" },
+                    { 5, 3, "Rule5" }
                 });
 
             migrationBuilder.CreateIndex(

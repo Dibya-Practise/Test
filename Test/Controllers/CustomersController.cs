@@ -19,23 +19,30 @@ namespace Test.Controllers
         [HttpGet]
         public async Task<ActionResult<CustomerDto>> GetCustomers()
         {
-            var customers = await _context.Customers
+            try
+            {
+                var customers = await _context.Customers
                 .Include(c => c.CustomerApplications)
                 .ThenInclude(ca => ca.Application)
                 .ThenInclude(a => a.Roles)
                 .ToListAsync();
 
-            var customerDtos = customers.Select(c => new CustomerDto
-            {
-                Name = c.Name,
-                Applications = c.CustomerApplications.Select(ca => new ApplicationDto
+                var customerDtos = customers.Select(c => new CustomerDto
                 {
-                    Name = ca.Application.Name,
-                    Roles = ca.Application.Roles.Select(r => r.Description).ToList()
-                }).ToList()
-            }).ToList();
+                    Name = c.Name,
+                    Applications = c.CustomerApplications.Select(ca => new ApplicationDto
+                    {
+                        Name = ca.Application.Name,
+                        Roles = ca.Application.Roles.Select(r => r.Description).ToList()
+                    }).ToList()
+                }).ToList();
 
-            return Ok(customerDtos);
+                return Ok(customerDtos);
+            }
+            catch
+            {
+                throw;
+            }    
         }
     }
 }
